@@ -39,7 +39,7 @@ public class SponsorController {
     }
 
     @ApiOperation(value = "查询雇主公司列表", notes = "查询雇主公司列表")
-    @RequestMapping(value = "/SponsorCompanys", method = RequestMethod.POST)
+    @PostMapping(value = "/SponsorCompanys")
     public Result sponsorcompanys(@RequestBody JSONObject jsonObject) {
         String userAddress = (String) jsonObject.get("userAddress");
         if (StrUtil.isEmpty(userAddress)){
@@ -57,7 +57,7 @@ public class SponsorController {
     }
 
     @ApiOperation(value = "给雇主充值", notes = "给雇主充值")
-    @RequestMapping(value = "depositSponsor", method = RequestMethod.POST)
+    @PostMapping("/depositSponsor")
     public Result<String> depositSposor(@RequestBody InsuranceAccountDTO insuranceAccountDTO) {
         return sponsorService.depositSposor(insuranceAccountDTO);
     }

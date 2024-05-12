@@ -3,6 +3,7 @@ package com.example.service.impl;
 import cn.hutool.json.JSONArray;
 import cn.hutool.json.JSONUtil;
 import com.example.mapper.UserMapper;
+import com.example.model.DTO.QueryDTO;
 import com.example.model.Result;
 import com.example.model.bo.PersonBo;
 import com.example.model.bo.SocialSecurityBureauBo;
@@ -258,6 +259,10 @@ public class QueryServiceImpl implements IQueryService {
         return insuranceAccount;
     }
 
+    @Override
+    public Object getPensionOpenArea(QueryDTO queryDTO) {
+        return null;
+    }
 
 
 }

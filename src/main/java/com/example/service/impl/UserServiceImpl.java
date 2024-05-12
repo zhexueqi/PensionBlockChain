@@ -29,11 +29,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.constant.ContractConstant.*;
+import static com.example.constant.UserConstant.USER_LOGIN_STATE;
 import static com.example.utils.SignUtils.generateSigantureWithSecp256k1;
 
 /**
@@ -61,7 +63,7 @@ public class UserServiceImpl implements UserService {
      * @throws BusinessException 如果用户数据有问题或用户不存在，抛出业务异常
      */
     @Override
-    public PersonBo login(UserDTO userDTO) {
+    public PersonBo login(UserDTO userDTO, HttpServletRequest request) {
         // 校验传入的用户信息是否为空
         if (StrUtil.isEmpty(userDTO.getUserAddress()) || StrUtil.isEmpty(userDTO.getName())
                 || StrUtil.isEmpty(userDTO.getSignSecurity())
@@ -101,6 +103,7 @@ public class UserServiceImpl implements UserService {
         if (!personBo.getName().equals(userDTO.getName())) {
             throw new BusinessException(ResultVO.NAME_ERROR);
         }
+        request.getSession().setAttribute(USER_LOGIN_STATE, personBo);
 
         return personBo;
     }

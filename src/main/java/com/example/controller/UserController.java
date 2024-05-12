@@ -13,6 +13,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
+import static com.example.constant.UserConstant.USER_LOGIN_STATE;
+
 /**
  * @author zhexueqi
  * @ClassName UserControoler
@@ -28,16 +32,23 @@ public class UserController {
     private UserService userService;
 
     @ApiOperation(value = "登录", notes = "登录")
-    @RequestMapping(value = "login", method = RequestMethod.POST)
+    @PostMapping(value = "/login")
     @CrossOrigin
-    public Result<PersonBo> login(@RequestBody UserDTO userDTO) {
-        PersonBo personBo = userService.login(userDTO);
+    public Result<PersonBo> login(@RequestBody UserDTO userDTO, HttpServletRequest request) {
+        PersonBo personBo = userService.login(userDTO,request);
         return Result.success(personBo);
+    }
+
+    @ApiOperation(value = "注销",notes = "登出")
+    @PostMapping(value = "/logout")
+    public Result<String> logout(HttpServletRequest request) {
+        request.getSession().removeAttribute(USER_LOGIN_STATE);
+        return Result.success("注销成功");
     }
 
     @ApiOperation(value = "注册用户", notes = "注册用户")
     @CrossOrigin
-    @RequestMapping(value = "addPerson", method = RequestMethod.POST)
+    @PostMapping(value = "/addPerson")
     public Result<String> addPerson(@RequestBody PersonBo personBo) {
         return userService.addPerson(personBo);
     }
@@ -45,13 +56,13 @@ public class UserController {
 
     @ApiOperation(value = "注册员工", notes = "注册员工")
     @CrossOrigin
-    @RequestMapping(value = "addEmployee", method = RequestMethod.POST)
+    @PostMapping(value = "/addEmployee")
     public Result<String> addEmployee(@RequestBody InsuranceAccountDTO insuranceAccountDTO) {
         return userService.addEmployee(insuranceAccountDTO);
     }
 
     @ApiOperation(value = "缴纳养老保险", notes = "缴纳养老保险")
-    @RequestMapping(value = "makePayment", method = RequestMethod.POST)
+    @PostMapping(value = "/makePayment")
     public Result<String> makePayment(@RequestBody InsuranceAccountBo InsuranceAccountBo) {
         return userService.makePayment(InsuranceAccountBo);
     }

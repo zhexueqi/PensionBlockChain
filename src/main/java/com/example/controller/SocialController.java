@@ -28,19 +28,19 @@ public class SocialController {
 
     @ApiOperation(value = "注册社保局", notes = "注册接口")
     @CrossOrigin
-    @RequestMapping(value = "addBureaus", method = RequestMethod.POST)
+    @PostMapping(value = "/addBureaus")
     public Result<SocialSecurityBureauDTO> addBureaus(@RequestBody SocialSecurityBureauDTO socialSecurityBureauDTO) {
         return socialService.addBureaus(socialSecurityBureauDTO);
     }
 
     @ApiOperation(value = "修改接收社保局的权限", notes = "修改接收社保局的权限 ")
-    @RequestMapping(value = "updateAuthorized", method = RequestMethod.POST)
+    @PostMapping(value = "/updateAuthorized")
     public Result<String> updateAuthorized(@RequestBody SocialSecurityBureauBo socialSecurityBureauBo) {
         return socialService.updateAuthorized(socialSecurityBureauBo);
     }
 
     @ApiOperation(value = "社保局审核申请", notes = "fromCity社保局审核申请")
-    @RequestMapping(value = "authorizeTransfer", method = RequestMethod.POST)
+    @PostMapping(value = "/authorizeTransfer")
     public Result<String> authorizeTransfer(@RequestBody ApplyBo applyBo) {
         return socialService.authorizeTransfer(applyBo);
     }
@@ -51,7 +51,7 @@ public class SocialController {
      * @return
      */
     @ApiOperation(value = "新的社保局接受申请", notes = "toCity 社保局接收账户转移接口 ")
-    @RequestMapping(value = "receiveTransfer", method = RequestMethod.POST)
+    @PostMapping(value = "/receiveTransfer")
     public Result<String> receiveTransfer(@RequestBody ApplyBo applyBo) {
         return socialService.receiveTransfer(applyBo);
     }

@@ -11,6 +11,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Api(value = "查询相关接口", tags = "查询相关接口")
 @RestController
 @RequestMapping("/query")
@@ -24,8 +26,8 @@ public class QueryController {
      * @return
      */
     @ApiOperation(value = "查询员工列表", notes = "注册接口")
-    @RequestMapping(value = "list", method = RequestMethod.POST)
-    public Result employees(@RequestBody String userAddress) {
+    @PostMapping("/list")
+    public Result list(@RequestBody String userAddress) {
         return queryService.listAllEmployees(userAddress);
     }
 
@@ -35,7 +37,7 @@ public class QueryController {
      * @return
      */
     @ApiOperation(value = "查询公司列表", notes = "查询公司列表")
-    @RequestMapping(value = "companys", method = RequestMethod.POST)
+    @PostMapping("/companys")
     public Result companys(@RequestBody JSONObject jsonObject) {
         String userAddress = jsonObject.getString("userAddress");
         return queryService.listCompanys(userAddress);
@@ -48,7 +50,7 @@ public class QueryController {
      * @return
      */
     @ApiOperation(value = "查询社保局列表", notes = "查询社保局列表")
-    @RequestMapping(value = "searchBureaus", method = RequestMethod.POST)
+    @PostMapping("/searchBureaus")
     public Result searchBureaus(@RequestBody JSONObject jsonObject) {
         String userAddress = jsonObject.getString("userAddress");
         System.out.println(userAddress);
@@ -61,7 +63,7 @@ public class QueryController {
      * @return
      */
     @ApiOperation(value = "查询社保转移申请列表", notes = "查询社保转移申请列表")
-    @RequestMapping(value = "getAllApplications", method = RequestMethod.POST)
+    @PostMapping("/getAllApplications")
     public Result getAllApplications(@RequestBody JSONObject jsonObject) {
         String userAddress = jsonObject.getString("userAddress");
         return queryService.getAllApplications(userAddress);
@@ -82,7 +84,7 @@ public class QueryController {
 
     @ApiOperation(value = "分页查询养老保险参保登记开通地区", notes = "分页查询养老保险参保登记开通地区")
     @PostMapping("/getPensionOpenArea")
-    public Result<List<>> getPensionOpenArea(@RequestBody QueryDTO queryDTO) {
+    public Result<Object> getPensionOpenArea(@RequestBody QueryDTO queryDTO) {
 
         return Result.success(queryService.getPensionOpenArea(queryDTO));
     }

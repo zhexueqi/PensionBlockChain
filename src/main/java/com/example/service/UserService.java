@@ -8,6 +8,8 @@ import com.example.model.bo.ApplyBo;
 import com.example.model.bo.InsuranceAccountBo;
 import com.example.model.bo.PersonBo;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author zhexueqi
  * @ClassName UserService
@@ -16,7 +18,7 @@ import com.example.model.bo.PersonBo;
 
 public interface UserService {
 
-    PersonBo login(UserDTO userDTO);
+    PersonBo login(UserDTO userDTO, HttpServletRequest request);
 
 
     Result<String> addEmployee(InsuranceAccountDTO insuranceAccountDTO);

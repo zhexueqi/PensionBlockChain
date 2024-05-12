@@ -27,7 +27,7 @@ public class EmployeeController {
 
 
     @ApiOperation(value = "申请养老保险转移", notes = "申请养老保险转移")
-    @RequestMapping(value = "applyForTransfer", method = RequestMethod.POST)
+    @PostMapping("/applyForTransfer")
     public Result<String> applyForTransfer(@RequestBody ApplyBo applyBo) {
         return userService.applyForTransfer(applyBo);
     }
